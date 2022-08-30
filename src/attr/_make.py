@@ -1,7 +1,6 @@
 # SPDX-License-Identifier: MIT
 
 import copy
-import enum
 import linecache
 import sys
 import types
@@ -44,18 +43,21 @@ _sentinel = object()
 _ng_default_on_setattr = setters.pipe(setters.convert, setters.validate)
 
 
-class _Nothing(enum.Enum):
+class _Nothing:
     """
-    Sentinel to indicate the lack of a value when ``None`` is ambiguous.
+    Sentinel class to indicate the lack of a value when ``None`` is ambiguous.
 
-    If extending attrs, you can use ``typing.Literal[NOTHING]`` to show
-    that a value may be ``NOTHING``.
+    ``_Nothing`` is a singleton. There is only ever one of it.
 
     .. versionchanged:: 21.1.0 ``bool(NOTHING)`` is now False.
-    .. versionchanged:: 22.2.0 ``NOTHING`` is now an ``enum.Enum`` variant.
     """
 
-    NOTHING = enum.auto()
+    _singleton = None
+
+    def __new__(cls):
+        if _Nothing._singleton is None:
+            _Nothing._singleton = super().__new__(cls)
+        return _Nothing._singleton
 
     def __repr__(self):
         return "NOTHING"
@@ -64,7 +66,7 @@ class _Nothing(enum.Enum):
         return False
 
 
-NOTHING = _Nothing.NOTHING
+NOTHING = _Nothing()
 """
 Sentinel to indicate the lack of a value when ``None`` is ambiguous.
 """

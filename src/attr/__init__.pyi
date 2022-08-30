@@ -1,4 +1,3 @@
-import enum
 import sys
 
 from typing import (
@@ -71,10 +70,7 @@ class AttrsInstance(Protocol):
 
 # _make --
 
-class _Nothing(enum.Enum):
-    NOTHING = enum.auto()
-
-NOTHING = _Nothing.NOTHING
+NOTHING: object
 
 # NOTE: Factory lies about its return type to make this possible:
 # `x: List[int] # = Factory(list)`

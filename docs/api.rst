@@ -28,7 +28,6 @@ Core
   Therefore if a class, method, or function claims that it has been added in an older version, it is only available in the ``attr`` namespace.
 
 .. autodata:: attrs.NOTHING
-   :no-value:
 
 .. autofunction:: attrs.define
 

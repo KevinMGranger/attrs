@@ -21,6 +21,7 @@ from attr._make import (
     _add_repr,
     _is_slot_cls,
     _make_init,
+    _Nothing,
     fields,
     make_class,
 )
@@ -902,30 +903,30 @@ class TestAddInit:
 
 class TestNothing:
     """
-    Tests for `NOTHING`.
+    Tests for `_Nothing`.
     """
 
     def test_copy(self):
         """
         __copy__ returns the same object.
         """
-        n = NOTHING
+        n = _Nothing()
         assert n is copy.copy(n)
 
     def test_deepcopy(self):
         """
         __deepcopy__ returns the same object.
         """
-        n = NOTHING
+        n = _Nothing()
         assert n is copy.deepcopy(n)
 
     def test_eq(self):
         """
         All instances are equal.
         """
-        assert NOTHING == NOTHING == NOTHING
-        assert not (NOTHING != NOTHING)
-        assert 1 != NOTHING
+        assert _Nothing() == _Nothing() == NOTHING
+        assert not (_Nothing() != _Nothing())
+        assert 1 != _Nothing()
 
     def test_false(self):
         """
